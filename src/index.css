@@ -14,7 +14,8 @@ code {
 
 
 .order-now {
-  padding: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
   font-size: 32px;
   font-weight: bold;
 }
