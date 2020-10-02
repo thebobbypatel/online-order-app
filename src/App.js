@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import orderService from './services/orders'
+import OrderDetails from './components/OrderDetails'
+import EditOrder from './components/EditOrder'
+import PlaceOrder from './components/PlaceOrder'
 import 'antd/dist/antd.css';
 import { Layout, Row, Col } from 'antd';
 
@@ -89,47 +92,26 @@ const App = () => {
             
             <Row gutter={24}>
               <Col span={8}>
-                <div className="order-now">Place Order</div>
-                <form class="order-form" onSubmit={addOrder}>
-                  Name: <input className="input-small"
-                      value={newName}
-                      onChange={handleNameChange}    
-                  />
-                  Email: <input className="input-small"
-                      value={newEmail}
-                      onChange={handleEmailChange}    
-                  />
-                  Order Items: <input className="input-small"
-                      value={newOrder}
-                      onChange={handleOrderChange}    
-                  />
-                  <button className="submit-button" type="submit">Place Order</button>
-                </form>
-                <p>Order Id of Order Placed: {orderId}</p>
+                <PlaceOrder 
+                  addOrder={addOrder} 
+                  newName={newName}
+                  handleNameChange={handleNameChange}
+                  newEmail={newEmail}
+                  handleEmailChange={handleEmailChange}
+                  newOrder={newOrder}
+                  handleOrderChange={handleOrderChange}
+                  orderId={orderId}
+                />
               </Col>
               <Col span={8}>
-                <div className="order-now">Edit Order</div>
-                <form class="order-form" onSubmit={getOrder}>
-                  Order Id: <input className="input-small"
-                      value={trackOrder}
-                      onChange={handleTrackOrderChange}    
-                  />
-                  <button className="submit-button" type="submit">Track Order</button>
-                </form>
+                <EditOrder 
+                  getOrder={getOrder} 
+                  trackOrder={trackOrder} 
+                  handleTrackOrderChange={handleTrackOrderChange}/>
               </Col>
               {showOrderDetails ? 
                 <Col span={8}>
-                  <div className="order-now">Order Details</div>
-                  <div>
-                      <div>
-                        <p>Name: {viewOrder.name}</p>
-                        <p>Date Placed: {viewOrder.date.substring(0,10)}</p>
-                        <p>Time Placed: {viewOrder.date.substring(11,16)}</p>
-                        <p>Order Items: {viewOrder.order}</p>
-                        <p>Ready for Pick Up? {viewOrder.ready ? 'Yes' : 'No'}</p>
-                        <p>Customer has Picked Up? {viewOrder.pickedUp ? 'Yes' : 'No'}</p>
-                      </div>
-                  </div>
+                  <OrderDetails viewOrder={viewOrder} />
                 </Col>
                 : 
                 <Col span={8}>
